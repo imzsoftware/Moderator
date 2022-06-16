@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+
+    <appender name="root" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="root_"></param>
+        <!--<param name="threshold" value="DEBUG"></param>-->       <!-- // spring logging switched off-->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} -[%t] %p -%c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="combined" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="root_"></param>
+        <param name="threshold" value="ALL"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} -[%t] %p -%c - %m%n"/>
+        </layout>
+    </appender>
+
+<!--    <appender name="CORE" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="core_"></param>
+        <param name="threshold" value="debug"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} -[%t] %p   - %m%n"/>
+        </layout>
+    </appender>-->
+
+    <appender name="CORE-EXCEPTION" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="error_"></param>
+        <param name="threshold" value="error"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} -[%t] %p   - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="DB" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="db_"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} - [%t] %-5p - %m%n"/>
+        </layout>
+    </appender>
+
+
+    <appender name="DB-EXCEPTION" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="dberror_"></param>
+        <param name="threshold" value="error"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} - [%t] %-5p - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="FAIL" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="fail_"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} -[%t] %p - %m%n"/>
+        </layout>
+    </appender>
+
+
+    <!-- COMMON APPENDER -->
+    <appender name="COMMON" class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="common_"></param>
+        <param name="threshold" value="debug"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} - %p   - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="COMMON-EXCEPTION"
+              class="com.traq.logger.DatedFileAppender">
+        <param name="Prefix" value="common_error_"></param>
+        <param name="threshold" value="error"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{dd MMM yyyy HH:mm:ss,SSS} - %p   - %m%n"/>
+        </layout>
+    </appender>
+
+    <category name="COMMON_LOGGER">
+        <priority value="DEBUG">
+        </priority>
+        <!--<appender-ref ref="combined"></appender-ref>-->
+        <appender-ref ref="COMMON"></appender-ref>
+        <appender-ref ref="COMMON-EXCEPTION"></appender-ref>
+    </category>
+
+    <category name="org.springframework.beans.factory.support.DefaultListableBeanFactory">
+        <priority value="FATAL"/>
+        <appender-ref ref="root"/>
+    </category>
+
+    <category name="org.hibernate.pretty.Printer">
+        <priority value="WARN"/>
+        <appender-ref ref="root"/>
+    </category>
+
+    <category name="org.hibernate.util.JDBCExceptionReporter">
+        <priority value="FATAL"/>
+        <appender-ref ref="root"/>
+    </category>
+
+    <category name="CORE_LOGGER">
+        <!--<priority value="INFO">
+        </priority>-->
+        <!--<appender-ref ref="combined"></appender-ref>-->
+        <appender-ref ref="CORE"></appender-ref>
+        <appender-ref ref="CORE-EXCEPTION"></appender-ref>
+    </category>
+    <category name="DB_LOGGER">
+        <!--<priority value="DEBUG">
+        </priority> -->
+        <!--<appender-ref ref="combined"></appender-ref>-->
+        <appender-ref ref="DB"></appender-ref>
+        <appender-ref ref="DB-EXCEPTION"></appender-ref>
+    </category>
+    <category name="FAIL_LOGGER">
+        <priority value="DEBUG">
+        </priority>
+        <!--<appender-ref ref="combined"></appender-ref>-->
+        <appender-ref ref="FAIL"></appender-ref>
+
+    </category>
+
+    <root>
+        <appender-ref ref="root"></appender-ref>
+
+    </root>
+</log4j:configuration>

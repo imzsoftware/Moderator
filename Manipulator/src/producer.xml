@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="config" class="net.wuenschenswert.spring.ReloadablePropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>file:system.conf</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+
+    <bean id="propertyConfigurer"
+          class="net.wuenschenswert.spring.ReloadingPropertyPlaceholderConfigurer">
+        <property name="properties" ref="config"/>
+    </bean>
+
+    <bean id="conConnnection" class="com.traq.common.TRAQConnManager">
+        <property name="conconfig">
+            <ref bean="appconfig"/>
+        </property>
+    </bean>
+
+
+    <bean id="transactioncode" class="com.traq.util.TransactionProcessor">
+        <property name="transactioncode">
+            <map>
+                <entry key="TM" value="traqprocessormap"/>
+                <entry key="PRAJ" value="prajprocessormap"/>
+                <entry key="ECI" value="eciprocessormap"/>
+                <entry key="TP" value="thirdpartyprocessormap"/>
+            </map>
+
+        </property>
+    </bean>
+
+    <bean id="schema" class="com.traq.common.validator.FindSchema">
+        <property name="schemaMap">
+            <map>
+                <entry key="OFFDEVICE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="LOGIN" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="GENRATEOTP" value="/opt/traqmatix/tracking/schema/generateotp.json"/>
+                <entry key="QUICKVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="MAPVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="DEVICECOUNT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="DVRVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="MFGVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="DEVICEVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="BRANDVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="DEVTYPEVIEW" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWZONE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWROLE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWROUTE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWGEOFENCE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWACC" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEPOIREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="MULTIDEVICE" value="/opt/traqmatix/tracking/schema/multidevice.json"/>
+                <entry key="ALERTLOGREPORT" value="/opt/traqmatix/tracking/schema/alertreport.json"/>
+                <entry key="TRACKDATA" value="/opt/traqmatix/tracking/schema/trackdata.json"/>
+
+                <entry key="CREATEDVR" value="/opt/traqmatix/tracking/schema/createdriver.json"/>
+                <entry key="UPDATEDVR" value="/opt/traqmatix/tracking/schema/updatedriver.json"/>
+                <entry key="ALRT" value="/opt/traqmatix/tracking/schema/alert.json"/>
+                <entry key="DROPDOWN" value="/opt/traqmatix/tracking/schema/dropdown.json"/>
+                <entry key="CREATEALERT" value="/opt/traqmatix/tracking/schema/createalert.json"/>
+                <entry key="UPDATEALERT" value="/opt/traqmatix/tracking/schema/updatealert.json"/>
+                <entry key="VIEWALERT" value="/opt/traqmatix/tracking/schema/viewalert.json"/>
+                <entry key="VIEWUSER" value="/opt/traqmatix/tracking/schema/viewuser.json"/>
+                <entry key="CREATEUSER" value="/opt/traqmatix/tracking/schema/createuser.json"/>
+                <entry key="UPDATEUSER" value="/opt/traqmatix/tracking/schema/updateuser.json"/>
+                <entry key="CREATEDEVICE" value="/opt/traqmatix/tracking/schema/createdevice.json"/>
+                <entry key="UPDATEDEVICE" value="/opt/traqmatix/tracking/schema/updatedevice.json"/>
+                <entry key="CREATEZONE" value="/opt/traqmatix/tracking/schema/createzone.json"/>
+                <entry key="UPDATEZONE" value="/opt/traqmatix/tracking/schema/updatezone.json"/>
+                <entry key="CREATEROLE" value="/opt/traqmatix/tracking/schema/createrole.json"/>
+                <entry key="UPDATEROLE" value="/opt/traqmatix/tracking/schema/updaterole.json"/>
+                <entry key="CREATEPREVTRIP" value="/opt/traqmatix/tracking/schema/report.json"/>
+                <entry key="CREATEROUTE" value="/opt/traqmatix/tracking/schema/createroute.json"/>
+                <entry key="UPDATEROUTE" value="/opt/traqmatix/tracking/schema/updateroute.json"/>
+
+                <entry key="DBSUMMARY" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ADDASSET" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ADDASSETTYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ADDBRAND" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ADDDEVICETYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ADDMFG" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEACC" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATEACC" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEMFG" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATEMFG" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEBRAND" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATEBRAND" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEDEVTYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATEDEVTYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TRAQDATA" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ONLINEREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="OFFLINEREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEGEOFENCE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATEGEOFENCE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="STDREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="IMGREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="LOCKUNLOCKREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ADVREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TAMPERINGREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="LIVETRACK" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TRKPLYREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="HISTRACK" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="DEVICECOUNT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="ALERTLOGREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+
+                <entry key="IDLEREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="STOPPAGEREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="OVERSTOPPAGEREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="OVERSPEEDREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="PUBSUB" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TRIPSTS" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="RESETPIN" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="RAWDATAREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TRACKDATAREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATETRIP" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATETRIP" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWTRIP" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TANKERREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="TALUKAREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="DISTRICTREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VEHFIND" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="GEOFENCEREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="WORKINGHOURREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="FUELREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="CREATEASSETTYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATEASSETTYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VIEWASSETTYPE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="FILTERDEVICE" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="VEHINGEOREPORT" value="/opt/traqmatix/tracking/schema/general.json"/>
+                <entry key="UPDATELOC" value="/opt/traqmatix/tracking/schema/general.json"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="prajprocessormap" class="com.traq.common.processor.ConfigureProcessor" scope="prototype">
+        <property name="processormap">
+            <map>
+                <entry key="QUICKVIEW" value="com.traq.processor.QuickViewProcessor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="eciprocessormap" class="com.traq.common.processor.ConfigureProcessor" scope="prototype">
+        <property name="processormap">
+            <map>
+                <entry key="TRACKDATA" value="com.app.processor.AppTrackDataProcessor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="thirdpartyprocessormap" class="com.traq.common.processor.ConfigureProcessor" scope="prototype">
+        <property name="processormap">
+            <map>
+                <entry key="LIVETRACK" value="com.traq.processor.LiveTrackProcessor"/>
+                <entry key="LOGIN" value="com.traq.processor.LoginProcessor"/>
+                <entry key="MAPVIEW" value="com.traq.processor.MapViewProcessor"/>
+                <entry key="STDREPORT" value="com.traq.reports.StandardReport"/>
+                <entry key="DVRVIEW" value="com.traq.processor.DriverProcessor"/>
+                <entry key="VIEWGEOFENCE" value="com.traq.processor.GeoFenceProcessor"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="traqprocessormap" class="com.traq.common.processor.ConfigureProcessor" scope="prototype">
+        <property name="processormap">
+            <map>
+                <entry key="OFFDEVICE" value="com.traq.processor.AddDeviceProcessor"/>
+                <entry key="UPDATELOC" value="com.app.processor.LocationUpdateProcessor"/>
+                <entry key="LOGIN" value="com.traq.processor.LoginProcessor"/>
+                <entry key="GENRATEOTP" value="com.traq.processor.OTPProcessor"/>
+                <entry key="QUICKVIEW" value="com.traq.processor.MapViewProcessor"/>
+                <entry key="DBSUMMARY" value="com.traq.processor.SummaryProcessor"/>
+                <entry key="ADDASSET" value="com.traq.processor.AddAssetProcessor"/>
+                <entry key="CREATEASSETTYPE" value="com.traq.processor.AssetTypeProcessor"/>
+                <entry key="UPDATEASSETTYPE" value="com.traq.processor.AssetTypeProcessor"/>
+                <entry key="VIEWASSETTYPE" value="com.traq.processor.AssetTypeProcessor"/>
+                <entry key="ADDBRAND" value="com.traq.processor.AddBrandProcessor"/>
+                <entry key="ADDDEVICETYPE" value="com.traq.processor.AddDeviceTypeProcessor"/>
+                <entry key="ADDMFG" value="com.traq.processor.AddManufacturerProcessor"/>
+                <entry key="CREATEACC" value="com.traq.processor.AccountProcessor"/>
+                <entry key="UPDATEACC" value="com.traq.processor.AccountProcessor"/>
+                <entry key="VIEWACC" value="com.traq.processor.AccountProcessor"/>
+                <entry key="UPDATEUSER" value="com.traq.processor.UserProcessor"/>
+                <entry key="CREATEUSER" value="com.traq.processor.UserProcessor"/>
+                <entry key="VIEWUSER" value="com.traq.processor.UserProcessor"/>
+                <entry key="MAPVIEW" value="com.traq.processor.MapViewProcessor"/>
+                <entry key="MFGVIEW" value="com.traq.processor.ManufacturerProcessor"/>
+                <entry key="DROPDOWN" value="com.traq.processor.DropDownProcessor"/>
+                <entry key="CREATEMFG" value="com.traq.processor.ManufacturerProcessor"/>
+                <entry key="UPDATEMFG" value="com.traq.processor.ManufacturerProcessor"/>
+                <entry key="BRANDVIEW" value="com.traq.processor.BrandProcessor"/>
+                <entry key="CREATEBRAND" value="com.traq.processor.BrandProcessor"/>
+                <entry key="UPDATEBRAND" value="com.traq.processor.BrandProcessor"/>
+                <entry key="DEVTYPEVIEW" value="com.traq.processor.DeviceTypeProcessor"/>
+                <entry key="CREATEDEVTYPE" value="com.traq.processor.DeviceTypeProcessor"/>
+                <entry key="UPDATEDEVTYPE" value="com.traq.processor.DeviceTypeProcessor"/>
+                <entry key="CREATEDEVICE" value="com.traq.processor.AddDeviceProcessor"/>
+                <entry key="UPDATEDEVICE" value="com.traq.processor.AddDeviceProcessor"/>
+                <entry key="DEVICEVIEW" value="com.traq.processor.AddDeviceProcessor"/>
+                <entry key="TRAQDATA" value="com.traq.reports.TopDeviceReport"/>
+                <entry key="ONLINEREPORT" value="com.traq.reports.DeviceStatusReport"/>
+                <entry key="OFFLINEREPORT" value="com.traq.reports.DeviceStatusReport"/>
+                <entry key="CREATEGEOFENCE" value="com.traq.processor.GeoFenceProcessor"/>
+                <entry key="UPDATEGEOFENCE" value="com.traq.processor.GeoFenceProcessor"/>
+                <entry key="VIEWGEOFENCE" value="com.traq.processor.GeoFenceProcessor"/>
+                <entry key="CHNAGEPIN" value="com.traq.processor.UserProcessor"/>
+                <entry key="CREATEZONE" value="com.traq.processor.ZoneProcessor"/>
+                <entry key="UPDATEZONE" value="com.traq.processor.ZoneProcessor"/>
+                <entry key="VIEWZONE" value="com.traq.processor.ZoneProcessor"/>
+                <entry key="CREATEROLE" value="com.traq.processor.RoleProcessor"/>
+                <entry key="UPDATEROLE" value="com.traq.processor.RoleProcessor"/>
+                <entry key="VIEWROLE" value="com.traq.processor.RoleProcessor"/>
+                <entry key="CREATEALERT" value="com.traq.processor.AlertProcessor"/>
+                <entry key="UPDATEALERT" value="com.traq.processor.AlertProcessor"/>
+                <entry key="VIEWALERT" value="com.traq.processor.AlertProcessor"/>
+                <entry key="DVRVIEW" value="com.traq.processor.DriverProcessor"/>
+                <entry key="CREATEDVR" value="com.traq.processor.DriverProcessor"/>
+                <entry key="UPDATEDVR" value="com.traq.processor.DriverProcessor"/>
+                <entry key="CHANGEPIN" value="com.traq.processor.UserProcessor"/>
+                <entry key="CREATEZONE" value="com.traq.processor.ZoneProcessor"/>
+                <entry key="UPDATEZONE" value="com.traq.processor.ZoneProcessor"/>
+                <entry key="VIEWZONE" value="com.traq.processor.ZoneProcessor"/>
+                <entry key="CREATEROLE" value="com.traq.processor.RoleProcessor"/>
+                <entry key="UPDATEROLE" value="com.traq.processor.RoleProcessor"/>
+                <entry key="VIEWROLE" value="com.traq.processor.RoleProcessor"/>
+                <entry key="CREATEALERT" value="com.traq.processor.AlertProcessor"/>
+                <entry key="UPDATEALERT" value="com.traq.processor.AlertProcessor"/>
+                <entry key="VIEWALERT" value="com.traq.processor.AlertProcessor"/>
+                <entry key="DVRVIEW" value="com.traq.processor.DriverProcessor"/>
+                <entry key="CREATEDVR" value="com.traq.processor.DriverProcessor"/>
+                <entry key="UPDATEDVR" value="com.traq.processor.DriverProcessor"/>
+                <entry key="STDREPORT" value="com.traq.reports.StandardReport"/>
+                <entry key="IMGREPORT" value="com.traq.reports.AdvancedReport"/>
+                <entry key="LOCKUNLOCKREPORT" value="com.traq.reports.LockUnlockReport"/>
+                <entry key="ADVREPORT" value="com.traq.reports.AdvancedReport"/>
+                <entry key="TAMPERINGREPORT" value="com.traq.reports.TamperingReport"/>
+                <entry key="LIVETRACK" value="com.traq.processor.LiveTrackProcessor"/>
+                <entry key="TRKPLYREPORT" value="com.traq.reports.TrackPlayReport"/>
+                <entry key="HISTRACK" value="com.traq.reports.TrackHistoryReport"/>
+                <entry key="DEVICECOUNT" value="com.traq.processor.DeviceDetailsProcessor"/>
+                <entry key="ALERTLOGREPORT" value="com.traq.reports.AlertLogReport"/>
+                <entry key="ALRT" value="com.traq.processor.NotifyProcessor"/>
+                <entry key="IDLEREPORT" value="com.traq.reports.TrackHistoryReport"/>
+                <entry key="STOPPAGEREPORT" value="com.traq.reports.TrackHistoryReport"/>
+                <entry key="OVERSTOPPAGEREPORT" value="com.traq.reports.TrackHistoryReport"/>
+                <entry key="OVERSPEEDREPORT" value="com.traq.reports.TrackHistoryReport"/>
+                <entry key="PUBSUB" value="com.traq.processor.PubSubProcessor"/>
+                <entry key="TRIPSTS" value="com.traq.processor.TripStatusProcessor"/>
+                <entry key="RESETPIN" value="com.traq.processor.UserProcessor"/>
+                <entry key="RAWDATAREPORT" value="com.traq.reports.RawDataReport"/>
+                <entry key="TRACKDATAREPORT" value="com.traq.reports.TrackDataReport"/>
+                <entry key="CREATETRIP" value="com.traq.processor.TripSchedulerProcessor"/>
+                <entry key="UPDATETRIP" value="com.traq.processor.TripSchedulerProcessor"/>
+                <entry key="VIEWTRIP" value="com.traq.processor.TripSchedulerProcessor"/>
+                <entry key="TANKERREPORT" value="com.traq.reports.TripReport"/>
+                <entry key="TALUKAREPORT" value="com.traq.reports.TripReport"/>
+                <entry key="DISTRICTREPORT" value="com.traq.reports.DistrictTripReport"/>
+                <entry key="VEHFIND" value="com.traq.processor.VehicleFinderProcessor"/>
+                <entry key="GEOFENCEREPORT" value="com.traq.reports.GeofenceReport"/>
+                <entry key="CREATEPREVTRIP" value="com.traq.processor.PreviousTripSchedulerProcessor"/>
+                <entry key="MULTIDEVICE" value="com.traq.processor.MultipleDeviceProcessor"/>
+                <entry key="WORKINGHOURREPORT" value="com.traq.reports.TrackHistoryReport"/>
+                <entry key="CREATEROUTE" value="com.traq.processor.RouteCreationProcessor"/>
+                <entry key="UPDATEROUTE" value="com.traq.processor.RouteCreationProcessor"/>
+                <entry key="VIEWROUTE" value="com.traq.processor.RouteCreationProcessor"/>
+                <entry key="CREATEPOIREPORT" value="com.traq.processor.RouteCreationProcessor"/>
+                <entry key="FUELREPORT" value="com.traq.reports.FuelReport"/>
+                <entry key="FILTERDEVICE" value="com.traq.processor.DeviceFilterProcessor"/>
+                <entry key="VEHINGEOREPORT" value="com.traq.reports.VehicleInGeofenceReport"/>
+                <entry key="CREATEVEHICLE" value="com.traq.processor.VehicleProcessor"/>
+                <entry key="UPDATEVEHICLE" value="com.traq.processor.VehicleProcessor"/>
+                <entry key="VIEWVEHICLE" value="com.traq.processor.VehicleProcessor"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="appconfig" class="com.traq.config.CoreConfig">
+        <property name="dbHost" value="#{db.host.url}"/>
+        <property name="dbName" value="#{db.service.name}"/>
+        <property name="dbPort" value="#{db.port.number}"/>
+        <property name="dbUser" value="#{db.user.name}"/>
+        <property name="dbPassword" value="#{db.host.password}"/>
+        <property name="dbpool" value="#{db.pool.size}"/>
+        <property name="kfkBroker" value="#{kfk.broker}"/>
+        <property name="host" value="#{core.host}"/>
+        <property name="port" value="#{core.port}"/>
+        <property name="moderatorURL" value="#{mode.url}"/>
+        <property name="connectionTimeOut" value="#{api.connect.timeout}"/>
+        <property name="readTimeOut" value="#{api.read.timeout}"/>
+
+        <property name="alertActiveTime" value="#{alert.active.time}"/>
+        <property name="redisHost" value="#{redis.db.ip}"/>
+        <property name="redisPort" value="#{redis_db_port}"/>
+        <property name="redisMinIdle" value="#{redis.min.idle}"/>
+        <property name="redisMaxIdle" value="#{redis.max.idle}"/>
+        <property name="redisMaxSize" value="#{redis.max.total}"/>
+        <property name="redisChannel" value="#{redis.channel}"/>
+
+        <property name="mongoHost" value="#{mongo.host}"/>
+        <property name="mongoPort" value="#{mongo.port.number}"/>
+        <property name="mongoUser" value="#{mongo.user.name}"/>
+        <property name="mongoPassword" value="#{mongo.db.password}"/>
+        <property name="mongoDB" value="#{mongo.db.name}"/>
+        <property name="mongoPool" value="#{mongo.pool.size}"/>
+
+        <property name="respTypeMap">
+            <map>
+                <entry key="3" value="IPP"/>
+                <entry key="5" value="IPP"/>
+                <entry key="P06" value="IPP"/>
+                <entry key="1" value="IPP"/>
+                <entry key="6" value="FRQ"/>
+                <entry key="16" value="ATS"/>
+                <entry key="27" value="SKL"/>
+                <entry key="40" value="SCH"/>
+                <entry key="P73" value="SCH"/>
+                <entry key="INTERVAL" value="SCH"/>
+                <entry key="41" value="AUL"/>
+                <entry key="P74" value="AUL"/>
+                <entry key="35" value="BTN"/>
+                <entry key="36" value="ULK"/>
+                <entry key="P43" value="ULK"/>
+                <entry key="P13" value="RST"/>
+                <entry key="P72" value="SYNC"/>
+            </map>
+        </property>
+
+    </bean>
+
+    <!--
+        Data Source for data base connection
+    -->
+
+    <bean id="mysqlDatasource" class="com.traq.dbpool.DBPoolDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="jdbcUrl" value="#{db.host.url}"/>
+        <property name="username" value="#{db.user.name}"/>
+        <property name="password" value="#{db.host.password}"/>
+        <property name="maxConnectionsPerPartition" value="#{data.connections.max.connections}"/>
+        <property name="minConnectionsPerPartition" value="#{data.connections.min.connections}"/>
+        <property name="partitionCount" value="#{data.connections.partitionCount}"/>
+        <property name="acquireIncrement" value="#{data.connections.acquireIncrement}"/>
+        <property name="statementsCacheSize" value="#{data.connections.statementsCacheSize}"/>
+        <property name="releaseHelperThreads" value="#{data.connections.releaseHelperThreads}"/>
+        <property name="idleMaxAge" value="#{data.connections.idleMaxAge}"/>
+        <property name="idleConnectionTestPeriod" value="#{data.connections.idleConnectionTestPeriod}"/>
+    </bean>
+
+    <!--
+    Data Source for Hive connection
+-->
+    <!--
+        <bean id="hiveDatasource"  class="com.traq.dbpool.DBPoolDataSource" destroy-method="close">
+            <property name="driverClass" value="org.apache.hive.jdbc.HiveDriver" />
+            <property name="jdbcUrl" value="#{hive.host.url}" />
+            <property name="username" value="#{hive.user.name}" />
+            <property name="password" value="#{hive.host.password}" />
+            <property name="maxConnectionsPerPartition" value="#{data.connections.max.connections}"/>
+            <property name="minConnectionsPerPartition" value="#{data.connections.min.connections}"/>
+            <property name="partitionCount" value="#{data.connections.partitionCount}"/>
+            <property name="acquireIncrement" value="#{data.connections.acquireIncrement}"/>
+            <property name="statementsCacheSize" value="#{data.connections.statementsCacheSize}"/>
+            <property name="releaseHelperThreads" value="#{data.connections.releaseHelperThreads}"/>
+        <property name="idleMaxAge" value="#{data.connections.idleMaxAge}"/>
+            <property name="idleConnectionTestPeriod" value="#{data.connections.idleConnectionTestPeriod}"/>
+        </bean>
+
+    -->
+
+    <bean id="sessionFactory" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          scope="singleton">
+        <property name="dataSource" ref="#{data.active.datasource}"/>
+    </bean>
+
+    <!--Status Table -->
+    <bean id="statusDao" class="com.traq.common.data.model.dao.impl.StatusDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!-- USER    -->
+    <bean id="userDao" class="com.traq.common.data.model.dao.impl.UserDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!-- Role Permission   -->
+    <bean id="rolePermissionDao" class="com.traq.common.data.model.dao.impl.RolePermissionImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Permission   -->
+    <bean id="permissionDao" class="com.traq.common.data.model.dao.impl.PermissionDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Asset_Type   -->
+    <bean id="assetTypeDao" class="com.traq.common.data.model.dao.impl.AssetTypeDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!-- Manufacturer -->
+    <bean id="mfgDao" class="com.traq.common.data.model.dao.impl.ManufacturerDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!-- Brand -->
+    <bean id="brandDao" class="com.traq.common.data.model.dao.impl.BrandDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Device   -->
+    <bean id="deviceDao" class="com.traq.common.data.model.dao.impl.DeviceDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Device Trail  -->
+    <bean id="deviceTrailDao" class="com.traq.common.data.model.dao.impl.DeviceTrailDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  DeviceType   -->
+    <bean id="deviceTypeDao" class="com.traq.common.data.model.dao.impl.DeviceTypeDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Vehicle_Type   -->
+    <bean id="vehicleTypeDao" class="com.traq.common.data.model.dao.impl.VehicleTypeDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Role   -->
+    <bean id="roleDao" class="com.traq.common.data.model.dao.impl.RoleDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  SMS_PACK   -->
+    <bean id="smsPackDao" class="com.traq.common.data.model.dao.impl.SmsPackDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Zone   -->
+    <bean id="zoneDao" class="com.traq.common.data.model.dao.impl.ZoneDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Geo_Fence   -->
+    <bean id="geoFenceDao" class="com.traq.common.data.model.dao.impl.GeoFenceDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Account   -->
+    <bean id="accountDao" class="com.traq.common.data.model.dao.impl.AccountDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Account Trail   -->
+    <bean id="accountTrailDao" class="com.traq.common.data.model.dao.impl.AccountTrailDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Account Type   -->
+    <bean id="accountTypeDao" class="com.traq.common.data.model.dao.impl.AccountTypeDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Driver   -->
+    <bean id="driverDao" class="com.traq.common.data.model.dao.impl.DriverDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+
+    <!--  Live Track   -->
+    <bean id="liveTrackDao" class="com.traq.common.data.model.dao.impl.LiveTrackDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+    <!--  User   -->
+    <bean id="customerTypeDao" class="com.traq.common.data.model.dao.impl.CustomerTypeDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Track Data   -->
+    <bean id="trackDataDao" class="com.traq.common.data.model.hivedao.hiveimpl.TrackDataDaoImpl" scope="prototype">
+        <property name="dataSource" ref="hiveDatasource"></property>
+    </bean>
+
+    <!--  Geo_Fence Area -->
+    <bean id="geoFenceAreaDao" class="com.traq.common.data.model.dao.impl.GeoFenceAreaDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Alert   -->
+    <bean id="alertDao" class="com.traq.common.data.model.dao.impl.AlertDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Alert Type  -->
+    <bean id="alertTypeDao" class="com.traq.common.data.model.dao.impl.AlertTypeDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Alert Asset  -->
+    <bean id="alertassetDao" class="com.traq.common.data.model.dao.impl.AlertAssetDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+    <!--  LockUnlock Datsa   -->
+    <bean id="lockDataDao" class="com.traq.common.data.model.hivedao.hiveimpl.LockDataDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Image Captured  -->
+    <bean id="imgcapDao" class="com.traq.common.data.model.dao.impl.CapturedImageDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Alert Log  -->
+    <bean id="alertlogDao" class="com.traq.common.data.model.dao.impl.AlertLogDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Location  -->
+    <bean id="locationDao" class="com.traq.common.data.model.dao.impl.LocationDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Route   -->
+    <bean id="routeDao" class="com.traq.common.data.model.dao.impl.RouteDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  RouteGeo   -->
+    <bean id="routeGeoDao" class="com.traq.common.data.model.dao.impl.RouteGeoDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Trip Order   -->
+    <bean id="tripOrderDao" class="com.traq.common.data.model.dao.impl.TripOrderDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Trip   -->
+    <bean id="tripsDao" class="com.traq.common.data.model.dao.impl.TripsDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  RawData  -->
+    <bean id="rawDataDao" class="com.traq.common.data.model.dao.impl.RawDataDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  tripScheduler -->
+    <bean id="tripSchedulerDao" class="com.traq.common.data.model.dao.impl.TripSchedulerDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Trip Details  -->
+    <bean id="tripDetailDao" class="com.traq.common.data.model.dao.impl.TripDetailDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  Geo in out  -->
+    <bean id="geoInOutDao" class="com.traq.common.data.model.dao.impl.GeoInOutDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  SMS REPORT  -->
+    <bean id="smsReportDao" class="com.traq.common.data.model.dao.impl.SMSReportDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  CLIENT  -->
+    <bean id="clientDao" class="com.traq.common.data.model.dao.impl.ClientDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!--  FUEL CALIBRATION  -->
+    <bean id="fuelCalibraterDao" class="com.traq.common.data.model.dao.impl.FuelCalibraterDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <bean id="vehicleDao" class="com.traq.common.data.model.dao.impl.VehicleDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+    <!-- Session Validator -->
+    <bean id="sessionValidateDao" class="com.traq.common.data.model.dao.impl.SessionValidateDaoImpl" scope="prototype">
+        <property name="dataSource" ref="mysqlDatasource"></property>
+    </bean>
+
+
+</beans>
